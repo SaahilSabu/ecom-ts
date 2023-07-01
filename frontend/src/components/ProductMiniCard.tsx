@@ -21,7 +21,7 @@ const ProductMiniCard = (props: { product: Product }) => {
         <div className="h-16">
           <a href={`/product/${product.slug}`}>
             <h5 className="text-xl tracking-tight text-slate-900">
-              {product.title}
+              {product.name}
             </h5>
           </a>
         </div>

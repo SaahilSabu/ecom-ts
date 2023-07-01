@@ -20,7 +20,7 @@ const Home = () => {
         </Helmet>
         <div className="grid justify-center items-center 2xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-4">
           {products!.map((product) => (
-            <ProductMiniCard key={product.id} product={product} />
+            <ProductMiniCard key={product._id} product={product} />
             // <div key={product.id}>{product.title}</div>
           ))}
         </div>

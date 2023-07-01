@@ -1,7 +1,11 @@
 import cors from "cors";
 import express, { Request, Response } from "express";
-import "dotenv/config";
+import dotenv from "dotenv";
 import { sampleProducts } from "./data";
+import mongoose from "mongoose";
+import { productRouter } from "./routers/productRouter";
+import seedRouter from "./routers/seedRouter";
+dotenv.config();
 const app = express();
 app.use(
   cors({
@@ -9,18 +13,22 @@ app.use(
     origin: ["http://localhost:5173"],
   })
 );
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/api/products', (req: Request, res: Response) => {
-  res.json(sampleProducts)
-})
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/zuke-ecom";
+mongoose.set("strictQuery", true);
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => {
+    console.log("connected to mongodb");
+  })
+  .catch(() => {
+    console.log("error mongodb");
+  });
 
-app.get('/api/products/:slug', (req, res) => {
-  console.log(req.params.slug)
-  res.json(sampleProducts.find((x) => x.slug === req.params.slug));
-});
-
+app.use("/api/products", productRouter);
+app.use("/api/seed", seedRouter);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {

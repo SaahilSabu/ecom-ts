@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import ProductColorPicker from "../components/ProductColorPicker";
 import ProductSizePicker from "../components/ProductSizePicker";
-import { Button } from "react-bootstrap";
 
 const ProductPage = () => {
   const params = useParams();
@@ -48,7 +47,7 @@ const ProductPage = () => {
       <Helmet>
         <title>{slug}</title>
       </Helmet>
-      <div key={product.id} className="flex w-full justify-between">
+      <div key={product._id} className="flex w-full justify-between">
         <div className="w-2/3 mx-2">
           <div className="grid grid-cols-3 gap-3">{imageList}</div>
           <div className="mt-2 border-2 border-gray-500 border-opacity-30">
@@ -68,7 +67,7 @@ const ProductPage = () => {
             ratingCountStyle={"text-xl underline font-semibold"}
           />
           <h1 className="text-2xl flex items-center p-3 tracking-tight font-semibold my-2 text-slate-900">
-            {product.title}
+            {product.name}
             <span className="text-4xl font-bold text-slate-900">
               ${product.price}
             </span>
@@ -79,11 +78,15 @@ const ProductPage = () => {
           <h6 className="text-base tracking-tight font-light my-2 text-slate-900">
             Regular Fit
           </h6>
-          <ProductColorPicker />
-          <ProductSizePicker />
+          <ProductColorPicker color={product.color} />
+          <ProductSizePicker avSizes={product.sizes} />
           <div className="flex flex-col p-2">
-            <button className="py-4 px-16 w-2/3 mx-auto border-r bg-black text-white text-xl m-2 ">ADD TO BAG</button>
-            <button className="py-4 px-16 w-2/3 mx-auto border-r bg-slate-200 text-xl m-2">WISHLIST</button>
+            <button className="py-4 px-16 w-2/3 mx-auto border-r bg-black text-white text-xl m-2 ">
+              ADD TO BAG
+            </button>
+            <button className="py-4 px-16 w-2/3 mx-auto border-r bg-slate-200 text-xl m-2">
+              WISHLIST
+            </button>
           </div>
         </div>
       </div>
