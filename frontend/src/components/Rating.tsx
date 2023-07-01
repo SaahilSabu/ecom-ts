@@ -1,6 +1,10 @@
-export const StarRating = (props: { rating: number, ratingCount?: number }) => {
-  const { rating, ratingCount } = props
-  const starWidth = 20;
+export const StarRating = (props: {
+  rating: number;
+  ratingCount?: number;
+  starWidth?: number;
+  ratingCountStyle: string
+}) => {
+  const { rating, ratingCount, starWidth, ratingCountStyle } = props;
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 !== 0;
 
@@ -66,9 +70,7 @@ export const StarRating = (props: { rating: number, ratingCount?: number }) => {
       {/* <span className="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-sm font-semibold">
         {rating}
       </span> */}
-      <span className="px-1 py-0.5 text-xs font-normal">
-      ({ratingCount})
-      </span>
+      <div className={`px-1 py-0.5 ${ratingCountStyle} font-normal`}>({ratingCount})</div>
     </div>
   );
 };
