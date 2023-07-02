@@ -21,6 +21,11 @@ const Navbar = () => {
 
   const logout = () => {
     dispatch({ type: "USER_LOGOUT" });
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("cartItems");
+    localStorage.removeItem("shippingAddress");
+    localStorage.removeItem("paymentMethod");
+    window.location.href = "/signin";
   };
 
   return (

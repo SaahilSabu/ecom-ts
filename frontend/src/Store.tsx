@@ -82,7 +82,28 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, userInfo: action.payload };
     }
     case "USER_LOGOUT":
-      return { ...state, userInfo: undefined };
+      return {
+        mode:
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light",
+        cart: {
+          cartItems: [],
+          paymentMethod: "PayPal",
+          shippingAddress: {
+            fullName: "",
+            address: "",
+            postalCode: "",
+            city: "",
+            country: "",
+          },
+          itemsPrice: 0,
+          shippingPrice: 0,
+          taxPrice: 0,
+          totalPrice: 0,
+        },
+      };
     default:
       return state;
   }

@@ -4,7 +4,8 @@ import { getError } from "../utils";
 import { ApiError } from "../types/ApiError";
 import { useSigninMutation } from "../hooks/userHooks";
 import { Store } from "../Store";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import LoadingBox from "../components/LoadingBox";
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const SignIn: React.FC = () => {
       });
       dispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate(redirect || "/");
+      navigate(redirect);
     } catch (err) {
       toast.error(getError(err as ApiError));
     }
@@ -41,32 +42,40 @@ const SignIn: React.FC = () => {
     }
   }, [navigate, redirect, userInfo]);
 
-  
   return (
-    <form onSubmit={submitHandler} className="flex flex-col w-1/3 mx-auto space-y-4">
-    <input
-      type="email"
-      placeholder="Email"
-      value={email}
-      onChange={(e) => setEmail(e.target.value)}
-      required
-      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
-    <input
-      type="password"
-      placeholder="Password"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}
-      required
-      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
-    <button
-      type="submit"
-      className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+    <form
+      onSubmit={submitHandler}
+      className="flex flex-col w-1/3 mx-auto space-y-4"
     >
-      Sign In
-    </button>
-  </form>
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+        className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <button
+        type="submit"
+        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+        disabled={isLoading}
+      >
+        Sign In
+      </button>
+      {isLoading && <LoadingBox />}
+      <div className="mb-3">
+        New customer?{" "}
+        <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
+      </div>
+    </form>
   );
 };
 
