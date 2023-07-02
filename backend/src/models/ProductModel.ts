@@ -4,7 +4,7 @@ const sizes = ["XS", "S", "M", "L", "XL", "XXL", "3XL"];
 
 @modelOptions({ schemaOptions: { timestamps: true } })
 export class Product {
-  public _id!: string;
+  public _id?: string;
 
   @prop({ required: true })
   public name!: string;

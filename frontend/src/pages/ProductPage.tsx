@@ -1,20 +1,43 @@
-import React from "react";
+import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import { useGetProductDetailsBySlugQuery } from "../hooks/productHook";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { ApiError } from "../types/ApiError";
-import { getError } from "../utils";
+import { convertProductToCartItem, getError } from "../utils";
 import { StarRating } from "../components/Rating";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import ProductColorPicker from "../components/ProductColorPicker";
 import ProductSizePicker from "../components/ProductSizePicker";
+import { CartItem } from "../types/Cart";
+import { Store } from "../Store";
+import { toast } from "react-toastify";
 
 const ProductPage = () => {
   const params = useParams();
   const { slug } = params;
+
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const {
+    cart: { cartItems },
+  } = state;
+
+  const addToCartHandler = async (item: CartItem) => {
+    if (!product) {
+      toast.warn("Product was not added");
+      return;
+    }
+
+    const existItem = cartItems.find((x) => x._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+
+    ctxDispatch({
+      type: "CART_ADD_ITEM",
+      payload: { ...item, quantity },
+    });
+
+    toast.success("Product added to the cart");
+  };
 
   const tempImages = [
     "https://www.daviddassow.com/wp-content/uploads/2021/11/mens-the-kooples-coats-parkas-khaki-bomber-jacket-with-orange-lining_4.jpg",
@@ -81,7 +104,12 @@ const ProductPage = () => {
           <ProductColorPicker color={product.color} />
           <ProductSizePicker avSizes={product.sizes} />
           <div className="flex flex-col p-2">
-            <button className="py-4 px-16 w-2/3 mx-auto border-r bg-black text-white text-xl m-2 ">
+            <button
+              className="py-4 px-16 w-2/3 mx-auto border-r bg-black text-white text-xl m-2 "
+              onClick={() =>
+                addToCartHandler(convertProductToCartItem(product))
+              }
+            >
               ADD TO BAG
             </button>
             <button className="py-4 px-16 w-2/3 mx-auto border-r bg-slate-200 text-xl m-2">

@@ -1,9 +1,10 @@
+import bcrypt from "bcryptjs";
 import { Product } from "./models/ProductModel";
 import { ObjectId } from "mongodb";
+import { User } from "./models/UserModel";
 
 export const sampleProducts: Product[] = [
   {
-    _id: new ObjectId().toHexString(),
     slug: "foldsack-backpack",
     name: "Fjallraven - Foldsack Backpack",
     price: 109.95,
@@ -25,7 +26,6 @@ export const sampleProducts: Product[] = [
     isFeatured: false,
   },
   {
-    _id: new ObjectId().toHexString(),
     slug: "premium-t-shirts",
     name: "Mens Casual Premium Slim Fit T-Shirts",
     price: 22.3,
@@ -48,7 +48,6 @@ export const sampleProducts: Product[] = [
     isFeatured: false,
   },
   {
-    _id: new ObjectId().toHexString(),
     slug: "cotton-jacket",
     name: "Mens Cotton Jacket",
     price: 55.99,
@@ -70,7 +69,6 @@ export const sampleProducts: Product[] = [
     isFeatured: false,
   },
   {
-    _id: new ObjectId().toHexString(),
     slug: "casual-slim-fit",
     name: "Mens Casual Slim Fit",
     price: 15.99,
@@ -92,7 +90,6 @@ export const sampleProducts: Product[] = [
     isFeatured: false,
   },
   {
-    _id: new ObjectId().toHexString(),
     slug: "legends-naga-gold",
     name: "John Hardy Women's Legends Naga Gold",
     price: 695,
@@ -114,4 +111,19 @@ export const sampleProducts: Product[] = [
     isFeatured: false,
   },
   // Add more products here...
+];
+
+export const sampleUsers: User[] = [
+  {
+    name: "Joe",
+    email: "admin@example.com",
+    password: bcrypt.hashSync("123456"),
+    isAdmin: true,
+  },
+  {
+    name: "John",
+    email: "user@example.com",
+    password: bcrypt.hashSync("123456"),
+    isAdmin: false,
+  },
 ];

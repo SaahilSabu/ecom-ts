@@ -14,6 +14,8 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { StoreProvider } from "./Store.tsx";
 import App from "./App.tsx";
+import Bag from "./pages/Cart.tsx";
+import SignIn from "./pages/SignIn.tsx";
 
 
 const queryClient = new QueryClient();
@@ -23,6 +25,8 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index={true} element={<Home />} />
       <Route path="product/:slug" element={<ProductPage />} />
+      <Route path="cart" element={<Bag />} />
+      <Route path="/signin" element={<SignIn />} />
     </Route>
   )
 );
