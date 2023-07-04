@@ -16,7 +16,11 @@ import { StoreProvider } from "./Store.tsx";
 import App from "./App.tsx";
 import Bag from "./pages/Cart.tsx";
 import SignIn from "./pages/SignIn.tsx";
-
+import SignUp from "./pages/SignUp.tsx";
+import Shipping from "./pages/Shipping.tsx";
+import PaymentMethod from "./pages/PaymentMethod.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import PlaceOrder from "./pages/PlaceOrder.tsx";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +31,12 @@ const router = createBrowserRouter(
       <Route path="product/:slug" element={<ProductPage />} />
       <Route path="cart" element={<Bag />} />
       <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="" element={<ProtectedRoute />}>
+        <Route path="/shipping" element={<Shipping />} />
+        <Route path="/payment" element={<PaymentMethod />} />
+        <Route path="/placeorder" element={<PlaceOrder />} />
+      </Route>
     </Route>
   )
 );
@@ -34,14 +44,14 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <StoreProvider>
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        {/* @ts-ignore */}
-        <RouterProvider router={router}>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </RouterProvider>
-      </QueryClientProvider>
-    </HelmetProvider>
+      <HelmetProvider>
+        <QueryClientProvider client={queryClient}>
+          {/* @ts-ignore */}
+          <RouterProvider router={router}>
+            <ReactQueryDevtools initialIsOpen={false} />
+          </RouterProvider>
+        </QueryClientProvider>
+      </HelmetProvider>
     </StoreProvider>
   </React.StrictMode>
 );

@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
-import { Product } from "./models/ProductModel";
+import { Product } from "./models/productModel";
 import { ObjectId } from "mongodb";
-import { User } from "./models/UserModel";
+import { User } from "./models/userModel";
 
 export const sampleProducts: Product[] = [
   {
