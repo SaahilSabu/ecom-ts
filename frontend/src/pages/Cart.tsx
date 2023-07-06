@@ -2,7 +2,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Store } from "../Store";
 import { useContext } from "react";
 import { CartItem } from "../types/Cart";
-import { toNamespacedPath } from "path";
 import { Helmet } from "react-helmet-async";
 import MessageBox from "../components/MessageBox";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,9 +11,8 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
-type Props = {};
 
-const Bag = (props: Props) => {
+const Bag = () => {
   const navigate = useNavigate();
   const {
     state: {

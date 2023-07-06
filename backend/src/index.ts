@@ -1,6 +1,7 @@
 import cors from "cors";
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
+import path from 'path'
 import { sampleProducts } from "./data";
 import mongoose from "mongoose";
 import { productRouter } from "./routers/productRouter";
@@ -36,7 +37,12 @@ app.use("/api/seed", seedRouter);
 app.use('/api/orders', orderRouter)
 app.use('/api/keys', keyRouter)
 
-const PORT = process.env.PORT || 5001;
+app.use(express.static(path.join(__dirname, '../../frontend/dist')))
+app.get('*', (req: Request, res: Response) =>
+  res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'))
+)
+
+const PORT: number = parseInt((process.env.PORT || '4000') as string, 10)
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

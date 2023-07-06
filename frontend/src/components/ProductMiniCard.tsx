@@ -11,7 +11,7 @@ type ProductMiniCardProps = {
   product: Product;
 };
 
-const ProductMiniCard = (props: { product: Product }) => {
+const ProductMiniCard = (props: ProductMiniCardProps) => {
   const { product } = props;
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {

@@ -1,6 +1,5 @@
-import {useContext, useEffect} from 'react'
+import { useEffect} from 'react'
 import { useGetOrderDetailsQuery, useGetPaypalClientIdQuery, usePayOrderMutation } from '../hooks/orderHook'
-import { Store } from '../Store'
 import { Link, useParams } from 'react-router-dom'
 import LoadingBox from '../components/LoadingBox'
 import MessageBox from '../components/MessageBox'
@@ -10,11 +9,8 @@ import { ApiError } from '../types/ApiError'
 import { PayPalButtons, PayPalButtonsComponentProps, SCRIPT_LOADING_STATE, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 import { toast } from "react-toastify";
 
-type Props = {}
 
-const Order = (props: Props) => {
-    const { state } = useContext(Store)
-    const { userInfo } = state
+const Order = () => {
 
     const params = useParams()
     const { id: orderId } = params
@@ -33,7 +29,7 @@ const Order = (props: Props) => {
     }
     const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
       style: { layout: 'vertical' },
-      createOrder(data, actions) {
+      createOrder(_, actions) {
         return actions.order
           .create({
             purchase_units: [
@@ -48,7 +44,7 @@ const Order = (props: Props) => {
             return orderID
           })
       },
-      onApprove(data, actions) {
+      onApprove(_, actions) {
         return actions.order!.capture().then(async (details) => {
           try {
             await payOrder({ orderId: orderId!, ...details })
