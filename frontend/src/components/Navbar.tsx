@@ -49,6 +49,11 @@ const Navbar = () => {
                 )}
               </Link>
             </button>
+              <button className="text-white mx-2">
+            <Link to="/orderhistory" >
+                Order History
+            </Link>
+                </button>
             {!userInfo ? (
               <button className="text-white mx-2">
                 <Link to="/signin">Sign In</Link>

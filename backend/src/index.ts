@@ -7,6 +7,7 @@ import { productRouter } from "./routers/productRouter";
 import seedRouter from "./routers/seedRouter";
 import { userRouter } from "./routers/userRouter";
 import { orderRouter } from "./routers/orderRouter";
+import { keyRouter } from "./routers/keyRouter";
 dotenv.config();
 const app = express();
 app.use(
@@ -33,6 +34,7 @@ app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
 app.use("/api/seed", seedRouter);
 app.use('/api/orders', orderRouter)
+app.use('/api/keys', keyRouter)
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
