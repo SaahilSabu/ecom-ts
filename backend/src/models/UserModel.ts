@@ -6,6 +6,7 @@ setGlobalOptions({ options: { allowMixed: Severity.ALLOW } });
     allowMixed: Severity.ALLOW
   } 
 })
+
 export class User {
   public _id?: string;
   @prop({ required: true })

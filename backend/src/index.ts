@@ -36,10 +36,13 @@ app.use("/api/seed", seedRouter);
 app.use('/api/orders', orderRouter)
 app.use('/api/keys', keyRouter)
 
-app.use(express.static(path.join(__dirname, '../../frontend/dist')))
+const staticPath = path.resolve(__dirname, '../../frontend/dist');
+
+app.use(express.static(staticPath));
+
 app.get('*', (req: Request, res: Response) =>
-  res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'))
-)
+  res.sendFile(path.resolve(staticPath, 'index.html'))
+);
 
 const PORT: number = parseInt((process.env.PORT || '4000') as string, 10)
 app.listen(PORT, () => {
