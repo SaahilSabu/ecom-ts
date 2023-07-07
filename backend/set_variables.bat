@@ -1,0 +1,2 @@
+@echo off
+SET TG_ALLOW_MIXED="ALLOW"

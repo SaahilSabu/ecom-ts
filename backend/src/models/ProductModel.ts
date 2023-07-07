@@ -1,8 +1,10 @@
-import { modelOptions, prop, getModelForClass } from "@typegoose/typegoose";
+import { modelOptions, prop, getModelForClass, setGlobalOptions, Severity } from "@typegoose/typegoose";
 
 const sizes = ["XS", "S", "M", "L", "XL", "XXL", "3XL"];
 
-@modelOptions({ schemaOptions: { timestamps: true } })
+setGlobalOptions({ options: { allowMixed: Severity.ALLOW } });
+
+@modelOptions({ options: { allowMixed: Severity.ALLOW } })
 export class Product {
   public _id?: string;
 

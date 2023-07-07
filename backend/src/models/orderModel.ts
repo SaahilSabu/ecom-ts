@@ -3,9 +3,14 @@ import {
   prop,
   getModelForClass,
   Ref,
+  setGlobalOptions,
+  Severity,
 } from "@typegoose/typegoose";
 import { Product } from "./productModel";
 import { User } from "./userModel";
+
+setGlobalOptions({ options: { allowMixed: Severity.ALLOW } });
+@modelOptions({ options: { allowMixed: Severity.ALLOW } })
 
 class ShippingAddress {
   @prop()
@@ -47,8 +52,11 @@ class PaymentResult {
   @prop()
   public email_address!: string;
 }
-
-@modelOptions({ schemaOptions: { timestamps: true } })
+@modelOptions({ 
+  options: { 
+    allowMixed: Severity.ALLOW
+  } 
+})
 export class Order {
   public _id!: string;
   @prop()

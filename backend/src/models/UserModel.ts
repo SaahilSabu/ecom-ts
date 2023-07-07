@@ -1,6 +1,11 @@
-import { modelOptions, prop, getModelForClass } from '@typegoose/typegoose';
+import { modelOptions, prop, getModelForClass, setGlobalOptions, Severity } from '@typegoose/typegoose';
 
-@modelOptions({ schemaOptions: { timestamps: true } })
+setGlobalOptions({ options: { allowMixed: Severity.ALLOW } });
+@modelOptions({ 
+  options: { 
+    allowMixed: Severity.ALLOW
+  } 
+})
 export class User {
   public _id?: string;
   @prop({ required: true })

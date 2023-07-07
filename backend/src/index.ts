@@ -19,16 +19,15 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/zuke-ecom";
-mongoose.set("strictQuery", true);
+const MONGODB_URI = process.env.MONGODB_URI!;
+// mongoose.set("strictQuery", true);
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
     console.log("connected to mongodb");
   })
-  .catch(() => {
-    console.log("error mongodb");
+  .catch((error) => {
+    console.error("Error connecting to MongoDB:", error);
   });
 
 app.use("/api/products", productRouter);
